@@ -130,7 +130,6 @@ celerybeat.pid
 # Environments
 .env
 .venv
-alembic.ini
 env/
 venv/
 ENV/

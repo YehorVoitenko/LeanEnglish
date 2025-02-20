@@ -2,24 +2,31 @@ from datetime import datetime
 
 from sqlalchemy import engine_from_config, pool
 from alembic import context
+from dotenv import load_dotenv
 
-# Load the models to register tables
+from config.database_config import DATABASE_URL
 from models import *
 
+load_dotenv()
+
 config = context.config
+config.set_main_option(
+    name="sqlalchemy.url",
+    value=DATABASE_URL
+)
 
 
 def get_migration_filename(message):
-    date_str = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")  # Date format (customizable)
-    # You can adjust this to your preferred filename format
+    date_str = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
     return f"{date_str}_{message}.py"
+
 
 def run_migrations_offline():
     """Run migrations in 'offline' mode."""
     url = config.get_main_option("sqlalchemy.url")
     context.configure(
         url=url,
-        target_metadata=SQLModel.metadata,  # Use SQLModel metadata
+        target_metadata=SQLModel.metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
     )
