@@ -2,8 +2,8 @@ import os
 
 DATABASE_TYPE = os.environ.get('DATABASE_TYPE', "postgresql+psycopg2")
 DATABASE_USER = os.environ.get('DATABASE_USER', 'postgres')
-DATABASE_PASSWORD = os.environ.get('DATABASE_PASSWORD', 'password')
-DATABASE_HOST = os.environ.get('DATABASE_HOST', 'postgres')
+DATABASE_PASSWORD = os.environ.get('DATABASE_PASSWORD', '1234567890')
+DATABASE_HOST = os.environ.get('DATABASE_HOST', 'localhost')
 DATABASE_PORT = os.environ.get('DATABASE_PORT', '5432')
 DATABASE_DEFAULT_TABLE = os.environ.get('DATABASE_DEFAULT_TABLE', 'LearnWords')
 

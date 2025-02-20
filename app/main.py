@@ -1,27 +1,13 @@
-import datetime
-import os
+from fastapi import FastAPI
 
-from database import get_database_session
-from processors.user_processor.processor import CreateUser
-from processors.user_processor.schemas import CreateUserRequest
-from processors.word_processor.constants import Languages
-from processors.word_processor.processor import CreateWord
-from processors.word_processor.schemas import WordToCreateRequest
+from processors.word_processor.routers import word_router
+from processors.user_processor.routers import user_router
+from services.database_service import init_tables
 
-os.system('alembic upgrade head')
+app = FastAPI()
 
-with get_database_session() as session:
-    user_id = str(datetime.datetime.now())
-    create_user = CreateUser(
-        session=session,
-        user_to_create=CreateUserRequest(user_id=user_id)
-    )
 
-    create_user.process()
+app.include_router(word_router)
+app.include_router(user_router)
 
-    create_word = CreateWord(
-        session=session,
-        word_to_create=WordToCreateRequest(word_to_create='sdfxsdf', user_id=user_id, translation='sdfxsdf'),
-        language=Languages.ENGLISH
-    )
-    create_word.process()
+init_tables()

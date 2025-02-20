@@ -6,7 +6,7 @@ from models import UserData
 from processors.user_processor.schemas import CreateUserRequest
 
 
-class CreateUser:
+class CreateNewUser:
     def __init__(
             self,
             session: Session,
@@ -21,6 +21,7 @@ class CreateUser:
         new_user = UserData(
             user_id=self._user_to_create.user_id
         )
+
         self._session.add(new_user)
         self._session.flush()
         created_user = copy.deepcopy(new_user)
